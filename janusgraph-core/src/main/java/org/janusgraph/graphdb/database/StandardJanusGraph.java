@@ -1026,6 +1026,7 @@ public class StandardJanusGraph extends JanusGraphBlueprintsGraph {
                             for (Map.Entry<String,Throwable> entry : indexFailures.entrySet()) {
                                 log.error("Error while committing index mutations for transaction ["+transactionId+"] on index: " +entry.getKey(),entry.getValue());
                             }
+                            throw new RuntimeException("Error while committing index mutations for transaction " + transactionId);
                         }
                         //3. Log transaction if configured - [FAILURE] is recorded but does not cause exception
                         if (logTxIdentifier!=null) {
@@ -1058,8 +1059,13 @@ public class StandardJanusGraph extends JanusGraphBlueprintsGraph {
                         }
                     }
                 } else {
+                  try {
                     //This just closes the transaction since there are no modifications
                     mutator.commitIndexes();
+                  } catch (Exception e) {
+                    log.error("Error while committing index with no mutations", e);
+                    throw e;
+                  }
                 }
             } else { //Just commit everything at once
                 //[FAILURE] This case only happens when there are no non-system mutations in which case all changes
