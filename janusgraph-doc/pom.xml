@@ -86,6 +86,12 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <phase>none</phase>
+                        <configuration>
+                            <!-- Quiet mode still shows warnings and errors -->
+                            <quiet>true</quiet>
+                            <failOnError>false</failOnError>
+                            <doclint>none</doclint>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

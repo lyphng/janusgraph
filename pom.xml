@@ -45,14 +45,14 @@
         <tag>HEAD</tag>
     </scm>
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-        <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
-        </repository>
+      <snapshotRepository>
+          <id>nexus</id>
+          <url>https://nexus.hq.gridqube.com/repository/maven-external/</url>
+      </snapshotRepository>
+      <repository>
+          <id>nexus</id>
+          <url>https://nexus.hq.gridqube.com/repository/maven-external/</url>
+      </repository>
     </distributionManagement>
     <properties>
         <titan.compatible-versions>1.0.0,1.1.0-SNAPSHOT</titan.compatible-versions>
@@ -83,7 +83,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <janusgraph.testdir>${project.build.directory}/janusgraph-test</janusgraph.testdir>
-        <gpg.skip>false</gpg.skip>
+        <gpg.skip>true</gpg.skip>
         <maven.gpg.version>3.2.4</maven.gpg.version>
         <perf.jvm.opts />
         <default.test.jvm.opts>-Xms256m -Xmx768m -XX:+HeapDumpOnOutOfMemoryError -ea ${test.extra.jvm.opts}</default.test.jvm.opts>
@@ -365,6 +365,7 @@
                             <goal>makeAggregateBom</goal>
                         </goals>
                         <configuration>
+                            <skip>true</skip>
                             <excludeArtifactId>janusgraph-examples,example-common,example-hbase,example-cql,example-berkeleyje,example-remotegraph,example-tinkergraph,janusgraph-test,janusgraph-backend-testutils,janusgraph-benchmark</excludeArtifactId>
                         </configuration>
                     </execution>
@@ -1527,6 +1528,8 @@
                                 <configuration>
                                     <!-- Quiet mode still shows warnings and errors -->
                                     <quiet>true</quiet>
+                                    <failOnError>false</failOnError>
+                                    <doclint>none</doclint>
                                 </configuration>
                             </execution>
                         </executions>
@@ -1565,9 +1568,9 @@
                         <extensions>true</extensions>
                         <configuration>
                             <!-- The Base URL of Nexus instance where we want to stage -->
-                            <nexusUrl>https://oss.sonatype.org</nexusUrl>
+                            <nexusUrl>https://nexus.hq.gridqube.com</nexusUrl>
                             <!-- The server "id" element from settings to use authentication from -->
-                            <serverId>ossrh</serverId>
+                            <serverId>nexus</serverId>
                         </configuration>
                     </plugin>
                 </plugins>

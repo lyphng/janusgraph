@@ -128,6 +128,8 @@
                             <doctitle>JanusGraph ${project.version} API</doctitle>
                             <!-- Quiet mode still shows warnings and errors -->
                             <quiet>true</quiet>
+                            <failOnError>false</failOnError>
+                            <doclint>none</doclint>
                         </configuration>
                     </execution>
                 </executions>

@@ -38,7 +38,7 @@
         <skipDefaultDistroIT>${it.skip}</skipDefaultDistroIT>
 
         <doc.dir>${project.parent.basedir}/docs</doc.dir>
-        <docker.build.skip>false</docker.build.skip>
+        <docker.build.skip>true</docker.build.skip>
 
         <cql-module>janusgraph-cql</cql-module>
         <cql-hadoop-module>cassandra-hadoop-util</cql-hadoop-module>
@@ -316,6 +316,12 @@
                     <execution>
                         <id>attach-javadocs</id>
                         <phase>none</phase>
+                        <configuration>
+                            <!-- Quiet mode still shows warnings and errors -->
+                            <quiet>true</quiet>
+                            <failOnError>false</failOnError>
+                            <doclint>none</doclint>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>
